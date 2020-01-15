@@ -33,6 +33,7 @@ import { ProductList } from './styles';
 
   render() {
     const {products} = this.state;
+    const {amount} = this.props;
 
     return (
       <ProductList>
@@ -47,7 +48,8 @@ import { ProductList } from './styles';
 
           <button type="button" onClick={() => this.handleAddProduct(product)}>
             <div>
-              <MdAddShoppingCart size={16} color="#fff" />
+              <MdAddShoppingCart size={16} color="#fff"/>{' '}
+              {amount[product.id]}
             </div>
             <span>Adicionar ao carrinho</span>
           </button>
@@ -59,7 +61,16 @@ import { ProductList } from './styles';
 }
 }
 
+const mapStateToProps = state => ({
+  amount: state.cart.reduce((amount, product) =>{
+    amount[product.id] = product.amount;
+    return amount;
+
+  }, {})
+}
+);
+
 const mapDispatchToProps = dispatch =>
   bindActionCreators(CartActions, dispatch);
 
-export default connect(null, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
