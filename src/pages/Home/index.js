@@ -46,7 +46,7 @@ import { ProductList } from './styles';
           <strong>{product.image}</strong>
           <span>{product.priceFormatted}</span>
 
-          <button type="button" onClick={this.handleAddProduct}>
+          <button type="button" onClick={() => this.handleAddProduct(product)}>
             <div>
               <MdAddShoppingCart size={16} color="#fff" />
             </div>
